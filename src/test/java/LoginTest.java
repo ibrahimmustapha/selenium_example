@@ -16,12 +16,14 @@ public class LoginTest {
 
     private WebDriver driver;
     private WebDriverWait wait;
+
     @Before
     public void startBrowser() {
         driver = new ChromeDriver();
         WebDriverManager.chromedriver().operatingSystem(OperatingSystem.LINUX).setup();
         driver.manage().window().maximize();
     }
+
     @Test
     public void login() {
         // Run this url
