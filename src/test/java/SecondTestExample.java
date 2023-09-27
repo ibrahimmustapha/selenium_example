@@ -39,8 +39,6 @@ public class SecondTestExample {
         for (WebElement console : consoles) {
             System.out.println(console.getText());
         }
-//        if (consoles != null)
-//            driver.close();
     }
 
     @Test
