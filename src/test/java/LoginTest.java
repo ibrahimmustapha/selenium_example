@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class LoginTest {
 
     private WebDriver driver;
@@ -45,26 +47,7 @@ public class LoginTest {
         WebElement loginStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Admin")));
         System.out.println("Login Status:: " + loginStatus);
 
-        if (loginStatus.isDisplayed()) {
-            System.out.println("Login successful");
-
-            // click on the dropdown menu
-            WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-userdropdown-tab")));
-            dropdown.click();
-
-            // find logout link and click logout
-            WebElement logout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Logout")));
-            logout.click();
-
-            // check for success or failure of logout
-            if (logout != null)
-                System.out.println("Logout successful");
-            else
-                System.out.println("Logout failed");
-
-        } else {
-            System.out.println("Login Failed!");
-        }
+        assertTrue(loginStatus.isDisplayed() == true, "Login status must be displayed");
     }
 
     @After

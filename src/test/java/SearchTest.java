@@ -10,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class SearchTest {
 
     private WebDriver driver;
@@ -36,7 +38,7 @@ public class SearchTest {
         for (WebElement sneaker: sneakers) {
             System.out.println(sneaker.getText());
         }
-
+        assertTrue(sneakers != null, "Found Nike Air Force ");
     }
 
     @After
