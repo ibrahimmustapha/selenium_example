@@ -38,10 +38,10 @@ public class SearchTest {
         }
 
     }
-//
-//    @After
-//    public void closeBrowser() {
-//        if (driver != null)
-//            driver.close();
-//    }
+
+    @After
+    public void closeBrowser() {
+        if (driver != null)
+            driver.close();
+    }
 }
