@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.OperatingSystem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -38,7 +39,7 @@ public class SearchTest {
         for (WebElement sneaker: sneakers) {
             System.out.println(sneaker.getText());
         }
-        assertTrue(sneakers != null, "Found Nike Air Force ");
+        Assert.assertTrue("Found Nike Air Force ", sneakers != null);
     }
 
     @After

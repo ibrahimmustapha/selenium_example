@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.config.OperatingSystem;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -21,8 +22,8 @@ public class LoginTest {
 
     @Before
     public void startBrowser() {
-        driver = new ChromeDriver();
         WebDriverManager.chromedriver().operatingSystem(OperatingSystem.LINUX).setup();
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
     }
 
@@ -45,9 +46,8 @@ public class LoginTest {
 
         // check for login success or failure
         WebElement loginStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Admin")));
-        System.out.println("Login Status:: " + loginStatus);
 
-        assertTrue(loginStatus.isDisplayed() == true, "Login status must be displayed");
+        Assert.assertTrue("Login status must be displayed", loginStatus.isDisplayed());
     }
 
     @After
