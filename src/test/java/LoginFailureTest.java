@@ -22,19 +22,18 @@ public class LoginFailureTest {
         WebDriverManager.chromedriver().operatingSystem(OperatingSystem.LINUX).setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://opensource-demo.orangehrmlive.com");
     }
 
     @Test
     public void loginFailure() {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
         // find email input and enter Admin as email
-        WebElement email = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
+        WebElement email = driver.findElement(By.name("username"));
         email.sendKeys("Admin");
 
         // find password input and enter 12345 as password
-        WebElement password = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")));
+        WebElement password = driver.findElement(By.name("password"));
         password.sendKeys("12345");
 
         // click on login button
@@ -42,7 +41,7 @@ public class LoginFailureTest {
         loginButton.click();
 
         // check for auth error message
-        WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("oxd-alert-content--error")));
+        WebElement errorMessage = driver.findElement(By.className("oxd-alert-content--error"));
         System.out.println(errorMessage.getText());
 
         Assert.assertTrue( "error message be displayed", errorMessage.isDisplayed());

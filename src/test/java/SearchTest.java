@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,18 +23,17 @@ public class SearchTest {
         driver = new ChromeDriver();
         WebDriverManager.chromedriver().operatingSystem(OperatingSystem.LINUX).setup();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.get("https://www.ebay.com/");
     }
 
     @Test
     public void searchItem() {
-        driver.get("https://www.ebay.com/");
 
         // find search input and search for nike 'Airforce'
         WebElement searchInput = driver.findElement(By.id("gh-ac"));
         searchInput.sendKeys("Airforce");
-
-        WebElement searchButton = driver.findElement(By.id("gh-btn"));
-        searchButton.click();
+        searchInput.submit();
 
         List<WebElement> sneakers = driver.findElements(By.partialLinkText("Air Force"));
         for (WebElement sneaker: sneakers) {
