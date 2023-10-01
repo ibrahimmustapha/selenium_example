@@ -37,13 +37,11 @@ public class EcommercePurchase {
         WebElement loginButton = driver.findElement(By.id("login-button"));
         loginButton.click();
 
-        // click on item
-        WebElement backpack = driver.findElement(By.linkText("Sauce Labs Backpack"));
-        backpack.click();
-
-        // add to cart
-        WebElement addToCartButton = driver.findElement(By.id("add-to-cart-sauce-labs-backpack"));
-        addToCartButton.click();
+        // add item to cart
+        String[] itemNames = {"Sauce Labs Backpack", "Sauce Labs Bike Light", "Sauce Labs Bolt T-Shirt", "Sauce Labs Fleece Jacket"};
+        for (String items : itemNames) {
+            addItemToCart(items);
+        }
 
         // open cart
         WebElement cartLink = driver.findElement(By.className("shopping_cart_link"));
@@ -76,6 +74,24 @@ public class EcommercePurchase {
         Assert.assertTrue("Complete header must be displayed", completeHeader.isDisplayed());
     }
 
+    // method to add item to cart
+    public void addItemToCart(String itemName) {
+        // locate item element which contains the name element
+        WebElement item = driver.findElement(By.xpath("//div[@class='inventory_item_name' and text()='" + itemName + "']"));
+
+        // Get the parent element to find the 'Add to cart' button
+        WebElement parentElement = item.findElement(By.xpath("../../.."));
+
+        // Assuming there's an 'Add to Cart' button within the product element, click it
+        WebElement addToCartButton = parentElement.findElement(By.xpath(".//button[@name='add-to-cart-" + itemName.toLowerCase().replace(" ", "-") + "']"));
+        addToCartButton.click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     @After
     public void closeBrowser() {
         if (driver != null)
