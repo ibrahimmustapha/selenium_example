@@ -29,52 +29,12 @@ public class ContactDatabaseTest {
     @Test
     public void addContact() {
         // login user
-        WebElement username = driver.findElement(By.id("email"));
-        WebElement password = driver.findElement(By.id("password"));
-        WebElement submitButton = driver.findElement(By.id("submit"));
-
-        username.sendKeys("kev12@gmail.com");
-        password.sendKeys("00000000");
-        submitButton.click();
+        login("kev12@gmail.com", "00000000");
 
         for (int i = 0; i < 10; i++) {
-
-            // add contact
-            WebElement addContactButton = driver.findElement(By.id("add-contact"));
-            addContactButton.click();
-
-            // add contact details
-            WebElement firstName = driver.findElement(By.id("firstName"));
-            WebElement lastName = driver.findElement(By.id("lastName"));
-            WebElement dateOfBirth = driver.findElement(By.id("birthdate"));
-            WebElement email = driver.findElement(By.id("email"));
-            WebElement phone = driver.findElement(By.id("phone"));
-            WebElement firstAddress = driver.findElement(By.id("street1"));
-            WebElement secondAddress = driver.findElement(By.id("street2"));
-            WebElement city = driver.findElement(By.id("city"));
-            WebElement state = driver.findElement(By.id("stateProvince"));
-            WebElement postalCode = driver.findElement(By.id("postalCode"));
-            WebElement country = driver.findElement(By.id("country"));
-
-            // Random number 0 - 100
-            Random rand = new Random();
-            int randomNumber = rand.nextInt(100);
-
-            firstName.sendKeys("Ayisha" + randomNumber);
-            lastName.sendKeys("Mustapha" + randomNumber);
-            dateOfBirth.sendKeys("1997-12-22");
-            email.sendKeys("ayishamustapha" + randomNumber + "@gmail.com");
-            phone.sendKeys("0249385444" + randomNumber);
-            firstAddress.sendKeys("Kasoa" + randomNumber);
-            secondAddress.sendKeys("Ashonmang" + randomNumber);
-            city.sendKeys("Accra");
-            state.sendKeys("Greater Accra" + randomNumber);
-            postalCode.sendKeys("33442345" + randomNumber);
-            country.sendKeys("Ghana" + randomNumber);
-
-            // submit contact form
-            WebElement submit = driver.findElement(By.id("submit"));
-            submit.click();
+            // add new contact
+            addNewContact("Ayisha", "Mustapha", "1997-12-22", "ayishamustapha" + i + "@gmail.com", "0249385444" + i,
+                    "Kasoa" + i, "Ashonmang" + i, "Greater Accra" + i, "2441" + i, "Ghana" + i);
 
             try {
                 Thread.sleep(3000);
@@ -83,13 +43,54 @@ public class ContactDatabaseTest {
             }
         }
 
-
         List<WebElement> contact = driver.findElements(By.className("contactTableBodyRow"));
         contact.forEach((c) -> {
             System.out.println(c.getText());
         });
 
         Assert.assertTrue("contact should be added to table", contact != null);
+    }
+
+    private void addNewContact(String firstName, String lastName, String dob, String contactEmail, String phoneNumber,
+                              String street1, String street2, String state, String postalCode, String country) {
+        WebElement addContactButton = driver.findElement(By.id("add-contact"));
+        addContactButton.click();
+
+        WebElement firstNameElement = driver.findElement(By.id("firstName"));
+        WebElement lastNameElement = driver.findElement(By.id("lastName"));
+        WebElement dateOfBirth = driver.findElement(By.id("birthdate"));
+        WebElement email = driver.findElement(By.id("email"));
+        WebElement phone = driver.findElement(By.id("phone"));
+        WebElement firstAddress = driver.findElement(By.id("street1"));
+        WebElement secondAddress = driver.findElement(By.id("street2"));
+        WebElement stateElement = driver.findElement(By.id("stateProvince"));
+        WebElement postalCodeElement = driver.findElement(By.id("postalCode"));
+        WebElement countryElement = driver.findElement(By.id("country"));
+
+        firstNameElement.sendKeys(firstName);
+        lastNameElement.sendKeys(lastName);
+        dateOfBirth.sendKeys(dob);
+        email.sendKeys(contactEmail);
+        phone.sendKeys(phoneNumber);
+        firstAddress.sendKeys(street1);
+        secondAddress.sendKeys(street2);
+        stateElement.sendKeys(state);
+        postalCodeElement.sendKeys(postalCode);
+        countryElement.sendKeys(country);
+
+        WebElement submit = driver.findElement(By.id("submit"));
+        submit.click();
+    }
+
+
+    private void login (String userEmail, String userPassword) {
+        WebElement username = driver.findElement(By.id("email"));
+        WebElement password = driver.findElement(By.id("password"));
+        WebElement submitButton = driver.findElement(By.id("submit"));
+
+        username.sendKeys(userEmail);
+        password.sendKeys(userPassword);
+        submitButton.click();
     }
 
     @After
