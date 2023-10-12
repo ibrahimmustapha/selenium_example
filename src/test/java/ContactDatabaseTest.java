@@ -43,6 +43,7 @@ public class ContactDatabaseTest {
             }
         }
 
+        // list all contact
         List<WebElement> contact = driver.findElements(By.className("contactTableBodyRow"));
         contact.forEach((c) -> {
             System.out.println(c.getText());
